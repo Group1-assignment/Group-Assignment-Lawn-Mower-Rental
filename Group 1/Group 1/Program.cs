@@ -3,31 +3,38 @@ using Group_1;
 
 Console.WriteLine("Hello, World!");
 
-
-List<CustomerList> customers = new List<CustomerList>();
-
-Console.WriteLine("Welcone To Group 1's Lawn Mower Renalt ");
-Console.WriteLine("1. New Customer");
-Console.WriteLine("2. View Rentals");
-Console.WriteLine("3. Rent");
-Console.WriteLine("Select Option 1-3");
-
-string option = Console.ReadLine();
-
-
-switch (option)
+List<Customer> customers = new List<Customer>();
+System();
+//LawnMowers();
+//Rent();
+static void System()
 {
-    case "1":
-        NewCustomer();
-        break;
 
-    //case "2":
-    //    LawnMowers();
-    //    break;
+    Console.WriteLine("Welcone To Group 1's LawnMower Renalt ");
+    Console.WriteLine("1. New Customer");
+    Console.WriteLine("2. View Rentals");
+    Console.WriteLine("3. Rent");
+    Console.WriteLine("Select Option 1-3");
 
-    //case "3";
-    //    Rent();
-    //    break;
+    string option = Console.ReadLine();
+
+
+    switch (option)
+    {
+        case "1":
+            Customer newCustomer = Group_1.Register.CreateCustomer();
+            break;
+
+            //case "2":
+            //    LawnMowerStock();
+            //    break;
+
+            //case "3";
+            //    Rent();
+            //    break;
+    }
+
+   
 }
 
 
