@@ -1,7 +1,11 @@
-﻿namespace LawnMower {
+﻿namespace LawnMowerRentalAssignment {
     internal class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello, World!");
+            Customer customer = new Customer("thord", 0765984765, CustomerType.Professional);
+
+            customer.NewRental(new LawnMower());
+
+
         }
     }
 }

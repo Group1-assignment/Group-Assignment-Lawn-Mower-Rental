@@ -38,5 +38,9 @@ namespace LawnMowerRentalAssignment {
             this.phoneNumber = phoneNumber;
             this.customerType = customerType;
         }
+
+        public void NewRental(Rental rentalObject) {
+            rentals.Add(rentalObject);
+        }
     }
 }
