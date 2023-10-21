@@ -39,6 +39,10 @@ namespace LawnMowerRentalAssignment {
             this.customerType = customerType;
         }
 
+        public override string ToString() {
+            return name + "\n" + phoneNumber + "\n" + customerType.ToString();
+        }
+
         public void NewRental(Rental rentalObject) {
             rentals.Add(rentalObject);
         }

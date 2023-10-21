@@ -29,23 +29,29 @@ namespace LawnMowerRentalAssignment.Services {
                 customerType = CustomerType.Private;
             else {
                 Console.WriteLine("wrong input, try again");
-                return GetCustomerType();
+                return GetCustomerType();   //recursive method calling itself if the input is wrong
             }
             return customerType;
         }
 
-        public static void GetCustomerDetails(RentalManager rentalManager) {
+        public static int ValidatePhoneNumber() {
+            Console.Write("Customer Phone Number: ");
+            int phoneNumber = 0;
+            if(int.TryParse(Console.ReadLine(), out phoneNumber))
+                return phoneNumber;
+            return ValidatePhoneNumber();
+        }
+
+        public static Customer GetCustomerDetails(RentalManager rentalManager) {
             Console.Write("Customer Name: ");
             string? name = null;
             while(name == null)
                 name = Console.ReadLine();
-            Console.Write("Customer Phone Number: ");
-            int phoneNumber = 0;
-            while(!int.TryParse(Console.ReadLine(), out phoneNumber)) {
-                Console.WriteLine("Wrong input, try again");
-            }
+
+
             CustomerType customerType = GetCustomerType();
-            rentalManager.RegisterCustomer(name, phoneNumber, customerType);
+            Customer customer = new Customer(name, phoneNumber, customerType);
+            return customer;
         }
 
         public static void Initialize() {
@@ -53,7 +59,7 @@ namespace LawnMowerRentalAssignment.Services {
 
             RentalManager rentalManager = new RentalManager();
 
-            GetCustomerDetails(rentalManager);
+            rentalManager.RegisterCustomer(GetCustomerDetails(rentalManager));
 
         }
         /*
