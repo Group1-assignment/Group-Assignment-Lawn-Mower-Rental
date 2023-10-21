@@ -5,19 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LawnMowerRentalAssignment.Services {
-    internal class UserInputHandler {
+    public static class UserInputHandler {
 
-        public void Initialize() {
-
-
-            RentalManager rentalManager = new RentalManager();
-
-            // Initialize lawn mowers with unique IDs.
-            for(int i = 1; i <= 15; i++) {
-                rentalApp.lawnMowers.Add(new LawnMower { MowerID = i, ModelName = "Lawn Mower " + i, Available = true });
-            }
-
-            while(true) {
+        private static void displayChoices() {
                 Console.WriteLine("Lawn Mower Rental System");
                 Console.WriteLine("1. Register Customer");
                 Console.WriteLine("2. Rent Lawn Mower");
@@ -25,15 +15,59 @@ namespace LawnMowerRentalAssignment.Services {
                 Console.WriteLine("4. Display Customer Rentals");
 
                 Console.Write("Select an option: ");
-                string choice = Console.ReadLine();
+
+        }
+        public static CustomerType GetCustomerType() {
+            string? input;
+            CustomerType customerType;
+            Console.WriteLine("enter professional or private customer: ");
+            input = Console.ReadLine();
+            input = input?.ToLower();
+            if(input == "professional")
+                customerType = CustomerType.Professional;
+            else if(input == "private")
+                customerType = CustomerType.Private;
+            else {
+                Console.WriteLine("wrong input, try again");
+                return GetCustomerType();
+            }
+            return customerType;
+        }
+
+        public static void GetCustomerDetails(RentalManager rentalManager) {
+            Console.Write("Customer Name: ");
+            string? name = null;
+            while(name == null)
+                name = Console.ReadLine();
+            Console.Write("Customer Phone Number: ");
+            int phoneNumber = 0;
+            while(!int.TryParse(Console.ReadLine(), out phoneNumber)) {
+                Console.WriteLine("Wrong input, try again");
+            }
+            CustomerType customerType = GetCustomerType();
+            rentalManager.RegisterCustomer(name, phoneNumber, customerType);
+        }
+
+        public static void Initialize() {
+
+
+            RentalManager rentalManager = new RentalManager();
+
+            GetCustomerDetails(rentalManager);
+
+        }
+        /*
+            // Initialize lawn mowers with unique IDs.
+            for(int i = 1; i <= 15; i++) {
+                rentalApp.lawnMowers.Add(new LawnMower { MowerID = i, ModelName = "Lawn Mower " + i, Available = true });
+            }
+
+            while(true) {
+                displayChoices();
+                string? choice = Console.ReadLine();
 
                 switch(choice) {
                     case "1":
-                        Console.Write("Customer Name: ");
-                        string name = Console.ReadLine();
-                        Console.Write("Customer Phone Number: ");
-                        string phoneNumber = Console.ReadLine();
-                        rentalApp.RegisterCustomer(name, phoneNumber);
                         break;
 
                     case "2":
@@ -82,6 +116,6 @@ namespace LawnMowerRentalAssignment.Services {
                         break;
                 }
             }
-        }
+        }*/
     }
 }
