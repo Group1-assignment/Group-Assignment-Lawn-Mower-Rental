@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LawnMowerRentalAssignment {
-    public enum CustomerType {
+namespace LawnMowerRentalAssignment
+{
+    public enum CustomerType
+    {
         Private,
         Professional
     }
-    public class Customer {
+    public class Customer
+    {
 
         //Private fields. these along with getter properties and no setters
         //will ensure that these fields can't be changed outside of the class after being created,
@@ -19,19 +22,25 @@ namespace LawnMowerRentalAssignment {
         private CustomerType customerType;
 
         //properties with getters only
-        public string Name {
-            get{
+        public string Name
+        {
+            get {
                 return name;
             }
         }
-        public int PhoneNumber {
+        public int PhoneNumber
+        {
             get {
                 return phoneNumber;
             }
         }
+        public CustomerType CustomerType
+        {
+            get { return customerType; }
+        }
 
         public List<Rental> rentals = new List<Rental>();   //all the rentals of the customer
-        
+
         //all fields are set in this constructor when creating the customer object
         public Customer(string name, int phoneNumber, CustomerType customerType) {
             this.name = name;
