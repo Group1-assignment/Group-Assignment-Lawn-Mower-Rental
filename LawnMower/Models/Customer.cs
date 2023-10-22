@@ -14,42 +14,22 @@ namespace LawnMowerRentalAssignment
     public class Customer
     {
 
-        //Private fields. these along with getter properties and no setters
-        //will ensure that these fields can't be changed outside of the class after being created,
-        //while still being accessable for reading the values
-        private string name;
-        private int phoneNumber;
-        private CustomerType customerType;
-
         //properties with getters only
-        public string Name
-        {
-            get {
-                return name;
-            }
-        }
-        public int PhoneNumber
-        {
-            get {
-                return phoneNumber;
-            }
-        }
-        public CustomerType CustomerType
-        {
-            get { return customerType; }
-        }
+        public string Name { get; }
+        public int PhoneNumber { get; }
+        public CustomerType CustomerType { get; }
 
-        public List<Rental> rentals = new List<Rental>();   //all the rentals of the customer
+        public List<Rental> rentals { get; } = new List<Rental>();   //all the rentals of the customer
 
         //all fields are set in this constructor when creating the customer object
         public Customer(string name, int phoneNumber, CustomerType customerType) {
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-            this.customerType = customerType;
+            Name = name;
+            PhoneNumber = phoneNumber;
+            CustomerType = customerType;
         }
 
         public override string ToString() {
-            return name + "\n" + phoneNumber + "\n" + customerType.ToString();
+            return Name + "\n" + PhoneNumber + "\n" + CustomerType.ToString();
         }
 
         public void NewRental(Rental rentalObject) {
