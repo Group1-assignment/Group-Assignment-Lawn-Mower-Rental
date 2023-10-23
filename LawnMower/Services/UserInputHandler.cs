@@ -33,7 +33,10 @@ namespace LawnMowerRentalAssignment.Services
                         break;
 
                     case "3":
-                        int lawnMowerStock = rentalManager.GetItemStock(ItemType.LawnMower);
+                        RentalItem? rentalItem = RentalManager.GetRentalItemById(ItemType.LawnMower);
+                        int lawnMowerStock = 0;
+                        if(rentalItem != null)
+                            lawnMowerStock = rentalItem.GetStock();
                         DisplayStock(lawnMowerStock);
                         break;
 
@@ -66,7 +69,7 @@ namespace LawnMowerRentalAssignment.Services
             customer.ReturnRental(rental);
             rentalManager.SaveCustomerListToJson();
 
-            Console.WriteLine("returned " + rental + ", Total Price: " + rentalManager.TotalPrice(rental));
+            Console.WriteLine("returned " + rental + ", Total Price: " + rental.TotalPrice());
 
         }
 
@@ -91,7 +94,7 @@ namespace LawnMowerRentalAssignment.Services
                     Console.WriteLine($"  - Item Type: {rental.ItemType}");
                     Console.WriteLine($"    Rental Start Date: {rental.RentalStartDate}");
                     Console.WriteLine($"    Days rented: " + rental.DaysPassed());
-                    Console.WriteLine($"    Total price: {rentalManager.TotalPrice(rental)}");
+                    Console.WriteLine($"    Total price: {rental.TotalPrice()}");
                 }
 
                 Console.WriteLine(); // Add a blank line to separate customers
@@ -102,16 +105,21 @@ namespace LawnMowerRentalAssignment.Services
             Console.WriteLine("\nCurrent stock of LawnMowers available for renting: " + itemStock);
         }
         private static void ProcessRental() {
-            int lawnMowerStock = rentalManager.GetItemStock(ItemType.LawnMower);
+
+            RentalItem? rentalItem = RentalManager.GetRentalItemById(ItemType.LawnMower);
+            int lawnMowerStock = 0;
+            if(rentalItem != null)
+                lawnMowerStock = rentalItem.GetStock();
+
             if(lawnMowerStock > 0) {
                 DisplayStock(lawnMowerStock);
-                List<Customer> customers = rentalManager.Customers;
+                List<Customer> customers = RentalManager.Customers;
                 indexList(customers);
                 int choice;
                 do {
                     Console.Write("Who is renting? Select an option: ");
-                } while(!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > rentalManager.Customers.Count - 1);
-                Customer customer = rentalManager.Customers[choice];
+                } while(!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > RentalManager.Customers.Count - 1);
+                Customer customer = RentalManager.Customers[choice];
                 customer.Rent(new Rental(ItemType.LawnMower));
                 Console.WriteLine("new lawnmower rental added to customer: " + customer.ToString());
                 rentalManager.SaveCustomerListToJson();

@@ -29,6 +29,16 @@ namespace LawnMowerRentalAssignment
             return daysPassed;
         }
 
+        public decimal TotalPrice() {
+            decimal price = 0;
+            RentalItem? rentalItem = RentalManager.GetRentalItemById(ItemType);
+            if(rentalItem != null) {
+                decimal pricePerDay = rentalItem.PricePerDay;
+                price = DaysPassed() * pricePerDay;
+            }
+            return price;
+        }
+
         public override string ToString() {
             return ItemType.ToString() + ", StartDate: " + RentalStartDate + ", Days Passed: " + DaysPassed();
         }
