@@ -18,7 +18,9 @@ namespace LawnMowerRentalAssignment
         public List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
-            RentalItems.Add(new RentalItem(15, 50, ItemType.LawnMower));    //manually adding the Lawnmower item type with its max stock and price to a list of rentalItems
+            RentalItems.Add(new RentalItem(7, 50, ItemType.Electrical1));
+            RentalItems.Add(new RentalItem(7, 50, ItemType.Petrol));
+            RentalItems.Add(new RentalItem(8, 50, ItemType.Electrical2));    //manually adding the Lawnmower item type with its max stock and price to a list of rentalItems
             InitializeCustomerList();
 
         }

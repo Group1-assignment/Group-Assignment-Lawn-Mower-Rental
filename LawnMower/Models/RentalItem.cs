@@ -9,7 +9,9 @@ namespace LawnMowerRentalAssignment
 {
     public enum ItemType
     {
-        LawnMower
+       Electrical1,
+       Electrical2,
+       Petrol
     }
     public class RentalItem
     {
@@ -25,6 +27,41 @@ namespace LawnMowerRentalAssignment
 
         public override string ToString() {
             return "Id: " + Id + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
+        }
+
+        public double GetEffect()
+        {
+            switch (Id) {
+                case ItemType.Electrical1:
+                    return 75.6;
+                  //  break;
+                    case ItemType.Electrical2:
+                    return 146;
+                 //   break;
+                case ItemType.Petrol:
+                    return 862;
+                //  break;
+                default:
+                    return 0;
+
+            }
+        }
+
+        public string GetUnit()
+        {
+            if(Id==ItemType.Petrol)
+            {
+                return "g / kWh";
+            }
+            else
+            { 
+                return "wH";
+            }
+        }
+
+        public string  GetEffectToString()
+        {
+            return GetEffect()+GetUnit();
         }
     }
 }
