@@ -40,4 +40,37 @@ namespace LawnMowerRentalAssignment
             Rentals.Remove(rentalObject);
         }
     }
+    class Basic : Rental
+    {
+        public int MinDays { get; set; }
+        // minimum  7 days
+
+        Void PricePlan1(int minDays)
+        {
+
+            DateTime StartDate = DateTime.Now.Date;
+            int minDays = 7;
+
+        }
+    }
+
+    class Basic: RentalItem {
+
+        bool coupon = false;
+        public decimal Offer { get; set; }
+        // 25 % discount 
+        void Discount() {
+
+
+        }
+        
+    }
+
+     class Prime: RentalItem
+    {
+        // bonus p 
+
+
+    }
+
 }
