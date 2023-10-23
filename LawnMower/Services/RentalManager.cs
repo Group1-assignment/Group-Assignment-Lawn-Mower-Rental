@@ -12,10 +12,11 @@ namespace LawnMowerRentalAssignment
     public class RentalManager
     {
         private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
-        private List<Customer> customers = new List<Customer>();
-        private List<RentalItem> RentalItems { get; } = new List<RentalItem>();
+        private static List<Customer>? customers = new List<Customer>();
 
-        public List<Customer> Customers { get { return customers; } }
+        public static List<RentalItem> RentalItems { get; } = new List<RentalItem>();
+
+        public static List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
             RentalItems.Add(new RentalItem(15, 50, ItemType.LawnMower));    //manually adding the Lawnmower item type with its max stock and price to a list of rentalItems
@@ -74,8 +75,8 @@ namespace LawnMowerRentalAssignment
 
             return customer;
         }
-        public RentalItem? GetRentalItemById(ItemType type) {
-            RentalItem? rentalItem = RentalItems.FirstOrDefault(rentalItem => rentalItem.Id == type);
+        public static RentalItem? GetRentalItemById(ItemType type) {
+            RentalItem? rentalItem = RentalItems.FirstOrDefault(rentalItem => rentalItem.ItemType == type);
 
             return rentalItem;
         }
@@ -84,7 +85,7 @@ namespace LawnMowerRentalAssignment
             return GetCustomerByPhoneNumber(phoneNumber) != null;
         }
 
-        public int GetRentedCount(ItemType type) {
+        public static int GetRentedCount(ItemType type) {
             int count = 0;
             foreach(Customer customer in customers) {
                 foreach(Rental rental in customer.Rentals) {
@@ -93,17 +94,6 @@ namespace LawnMowerRentalAssignment
                 }
             }
             return count;
-        }
-        public int GetItemStock(ItemType type) {
-            RentalItem? rentalItem = GetRentalItemById(type);
-            int stock = rentalItem.MaxStock - GetRentedCount(type);
-            return stock;
-        }
-
-        public decimal TotalPrice(Rental rental) {
-            decimal pricePerDay = GetRentalItemById(rental.ItemType).PricePerDay;
-            decimal price = rental.DaysPassed() * pricePerDay;
-            return price;
         }
     }
 

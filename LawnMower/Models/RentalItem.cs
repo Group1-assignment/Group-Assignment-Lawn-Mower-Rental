@@ -15,16 +15,21 @@ namespace LawnMowerRentalAssignment
     {
         public int MaxStock { get; }
         public decimal PricePerDay { get; }
-        public ItemType Id { get; }
+        public ItemType ItemType { get; }
 
         public RentalItem(int maxStock, decimal price, ItemType itemType) {
-            Id = itemType;
+            ItemType = itemType;
             MaxStock = maxStock;
             PricePerDay = price;
         }
 
+        public int GetStock() {
+            int stock = MaxStock - RentalManager.GetRentedCount(ItemType);
+            return stock;
+        }
+
         public override string ToString() {
-            return "Id: " + Id + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
+            return "Id: " + ItemType + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
         }
     }
 }
