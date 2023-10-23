@@ -2,17 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace LawnMowerRentalAssignment {
-    public class Rental {
-        protected int maxStock;
-        protected DateTime rentalStartDate;
-        public decimal Price { get; set; }
+namespace LawnMowerRentalAssignment
+{
+    public class Rental
+    {
+        public DateTime RentalStartDate { get; }
+        public ItemType ItemType { get; }
 
-        public Rental() {
-            rentalStartDate = DateTime.Now;
+        public Rental(ItemType itemType) {
+            RentalStartDate = DateTime.Now.Date;
+            ItemType = itemType;
+        }
+        [JsonConstructor]
+        public Rental(ItemType itemType, DateTime rentalStartDate) {
+            ItemType = itemType;
+            RentalStartDate = rentalStartDate;
+        }
 
+        public int DaysPassed() {
+            DateTime currentDate = DateTime.Now;
+            TimeSpan timePassed = currentDate - RentalStartDate;
+            int daysPassed = timePassed.Days;
+            return daysPassed;
+        }
+
+        public override string ToString() {
+            return ItemType.ToString() + ", StartDate: " + RentalStartDate + ", Days Passed: " + DaysPassed();
         }
     }
 

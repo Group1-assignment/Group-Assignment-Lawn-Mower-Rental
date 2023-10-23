@@ -19,7 +19,7 @@ namespace LawnMowerRentalAssignment
         public int PhoneNumber { get; }
         public CustomerType CustomerType { get; }
 
-        public List<Rental> rentals { get; } = new List<Rental>();   //all the rentals of the customer
+        public List<Rental> Rentals { get; set; } = new List<Rental>();   //all the rentals of the customer
 
         //all fields are set in this constructor when creating the customer object
         public Customer(string name, int phoneNumber, CustomerType customerType) {
@@ -29,11 +29,15 @@ namespace LawnMowerRentalAssignment
         }
 
         public override string ToString() {
-            return Name + "\n" + PhoneNumber + "\n" + CustomerType.ToString();
+            return Name + ", " + PhoneNumber + ", " + CustomerType.ToString();
         }
 
-        public void NewRental(Rental rentalObject) {
-            rentals.Add(rentalObject);
+        public void Rent(Rental rentalObject) {
+            Rentals.Add(rentalObject);
+        }
+
+        public void ReturnRental(Rental rentalObject) {
+            Rentals.Remove(rentalObject);
         }
     }
 }
