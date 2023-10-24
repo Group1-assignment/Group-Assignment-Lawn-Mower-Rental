@@ -1,9 +1,12 @@
-﻿using System;
+﻿using LawnMowerRentalAssignment;
+using LawnMowerRentalAssignment.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -12,15 +15,11 @@ namespace LawnMowerRentalAssignment
     public class RentalManager
     {
         private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
-        private List<Customer> customers = new List<Customer>();
-        private List<RentalItem> RentalItems { get; } = new List<RentalItem>();
+        private List<Customer>? customers = new List<Customer>();
 
         public List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
-            RentalItems.Add(new RentalItem(7, 50, ItemType.Electrical1));
-            RentalItems.Add(new RentalItem(7, 50, ItemType.Petrol));
-            RentalItems.Add(new RentalItem(8, 50, ItemType.Electrical2));    //manually adding the Lawnmower item type with its max stock and price to a list of rentalItems
             InitializeCustomerList();
 
         }
@@ -30,8 +29,8 @@ namespace LawnMowerRentalAssignment
                 string json = File.ReadAllText(jsonPath);
 
                 try {
+
                     customers = JsonSerializer.Deserialize<List<Customer>>(json);
-                    // If deserialization is successful, the customers list is populated.
                 }
                 catch(JsonException ex) {
                     // Handle the exception.
@@ -48,6 +47,9 @@ namespace LawnMowerRentalAssignment
 
         public List<Customer> GetRentingCustomers() {
             List<Customer> rentingCustomers = customers.Where(customer => customer.Rentals.Count > 0).ToList();
+
+            foreach(Customer customer in rentingCustomers)
+                Console.WriteLine(customer.ToString());
 
             return rentingCustomers;
         }
@@ -67,47 +69,40 @@ namespace LawnMowerRentalAssignment
 
         public void SaveCustomerListToJson() {
 
-            string json = JsonSerializer.Serialize(customers, new JsonSerializerOptions { WriteIndented = true });
+
+            var options = new JsonSerializerOptions {
+                WriteIndented = true // Optional: Makes the JSON output human-readable
+            };
+
+            string json = JsonSerializer.Serialize(customers, options);
             File.WriteAllText(jsonPath, json);
         }
+
 
         public Customer? GetCustomerByPhoneNumber(int phoneNumber) {
             Customer? customer = customers.FirstOrDefault(customer => customer.PhoneNumber == phoneNumber);
 
             return customer;
         }
-        public RentalItem? GetRentalItemById(ItemType type) {
-            RentalItem? rentalItem = RentalItems.FirstOrDefault(rentalItem => rentalItem.Id == type);
+        /*public static RentalItem? GetRentalItemById(LawnMowerModel type) {
+            RentalItem? rentalItem = RentalItems.FirstOrDefault(rentalItem => rentalItem.ItemType == type);
 
             return rentalItem;
-        }
+        }*/
 
         public bool PhoneNumberExists(int phoneNumber) {
             return GetCustomerByPhoneNumber(phoneNumber) != null;
         }
 
-        public int GetRentedCount(ItemType type) {
+        public static int GetRentedCount(RentalItem rentalItem) {
             int count = 0;
-            foreach(Customer customer in customers) {
+            foreach(Customer customer in new RentalManager().customers) {
                 foreach(Rental rental in customer.Rentals) {
-                    if(rental.ItemType == type)
+                    if(rentalItem.GetType() == rental.RentedItem.GetType())
                         count++;
                 }
             }
             return count;
         }
-        public int GetItemStock(ItemType type) {
-            RentalItem? rentalItem = GetRentalItemById(type);
-            int stock = rentalItem.MaxStock - GetRentedCount(type);
-            return stock;
-        }
-
-        public decimal TotalPrice(Rental rental) {
-            decimal pricePerDay = GetRentalItemById(rental.ItemType).PricePerDay;
-            decimal price = rental.DaysPassed() * pricePerDay;
-            return price;
-        }
     }
-
-
 }
