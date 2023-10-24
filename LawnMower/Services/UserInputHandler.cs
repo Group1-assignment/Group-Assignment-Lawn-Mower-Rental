@@ -12,13 +12,7 @@ namespace LawnMowerRentalAssignment.Services
         private static RentalManager rentalManager = new RentalManager();
 
         public static void Initialize() {
-            foreach(Customer customer in rentalManager.Customers) {
-                Console.WriteLine(customer.ToString());
-            }
             ProcessChoices();
-            LawnMower lawnmower = new LawnMower(LawnMowerModel.Petrol);
-
-            Console.WriteLine(lawnmower.ToString());
 
         }
 

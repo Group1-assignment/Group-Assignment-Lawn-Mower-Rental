@@ -3,26 +3,12 @@
     "Name": "asddg",
     "PhoneNumber": 2343687,
     "CustomerType": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-24T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 2
-        }
-      }
-    ]
+    "Rentals": []
   },
   {
     "Name": "sdfsdg",
     "PhoneNumber": 434567,
     "CustomerType": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-24T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 2
-        }
-      }
-    ]
+    "Rentals": []
   }
 ]

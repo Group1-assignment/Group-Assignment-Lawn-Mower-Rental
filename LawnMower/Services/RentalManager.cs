@@ -20,15 +20,7 @@ namespace LawnMowerRentalAssignment
         public List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
-            /*RentalItems.Add(new RentalItem(7, 50, LawnMowerModel.Electrical1));
-            RentalItems.Add(new RentalItem(7, 50, LawnMowerModel.Petrol));
-            RentalItems.Add(new RentalItem(8, 50, LawnMowerModel.Electrical2));    //manually adding the Lawnmower item type with its max stock and price to a list of rentalItems*/
             InitializeCustomerList();
-
-            foreach(var customer in Customers) {
-                Console.WriteLine("hej");
-                Console.WriteLine(customer.ToString());
-            }
 
         }
 
@@ -85,7 +77,6 @@ namespace LawnMowerRentalAssignment
             string json = JsonSerializer.Serialize(customers, options);
             File.WriteAllText(jsonPath, json);
         }
-        //objectwrapper class to store the classnamewrapper in json, to keep track of the object type and polymorphism
 
 
         public Customer? GetCustomerByPhoneNumber(int phoneNumber) {
@@ -112,15 +103,6 @@ namespace LawnMowerRentalAssignment
                 }
             }
             return count;
-        }
-    }
-
-    internal class ObjectWrapper<T>
-    {
-        private RentalItem value;
-
-        public ObjectWrapper(RentalItem value) {
-            this.value = value;
         }
     }
 }
