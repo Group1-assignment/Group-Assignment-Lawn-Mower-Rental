@@ -3,28 +3,36 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LawnMowerRentalAssignment
 {
-    public enum ItemType
+    public abstract class RentalItem
     {
-        LawnMower
-    }
-    public class RentalItem
-    {
-        public int MaxStock { get; }
-        public decimal PricePerDay { get; }
-        public ItemType Id { get; }
+        [JsonIgnore]
+        public virtual int MaxStock { get { return GetMaxStock(); } }
+        [JsonIgnore]
+        public decimal PricePerDay { get { return GetPricePerDay(); } }
+        [JsonIgnore]
+        public string Name { get { return GetItemName(); } }
 
-        public RentalItem(int maxStock, decimal price, ItemType itemType) {
-            Id = itemType;
-            MaxStock = maxStock;
-            PricePerDay = price;
+        protected static int GetMaxStock() {
+            return 0;
+        }
+        protected abstract decimal GetPricePerDay();
+
+        public int GetStock() {
+            int stock = MaxStock - RentalManager.GetRentedCount(this);
+            return stock;
+        }
+
+        protected virtual string GetItemName() {
+            return GetType().Name;
         }
 
         public override string ToString() {
-            return "Id: " + Id + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
+            return "Item: " + GetItemName() + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
         }
     }
 }
