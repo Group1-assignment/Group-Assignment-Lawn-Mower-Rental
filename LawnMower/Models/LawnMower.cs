@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LawnMowerRentalAssignment.Models
@@ -15,15 +16,19 @@ namespace LawnMowerRentalAssignment.Models
 
     public class LawnMower:RentalItem
     {
+        [JsonIgnore]
+        public override int MaxStock => GetMaxStock(Model);
         public LawnMowerModel Model { get; }
+        [JsonIgnore]
         public double Effect { get { return GetEffect(); } }
+        [JsonIgnore]
         public string EffectUnit { get { return GetUnit(); } }
 
         public LawnMower(LawnMowerModel model) {
             Model = model;
         }
 
-        public override string GetItemName() {
+        protected override string GetItemName() {
             return base.GetItemName() + " " + Model;
         }
         public override string ToString() {
@@ -38,8 +43,8 @@ namespace LawnMowerRentalAssignment.Models
             return 50;
         }
 
-        protected override int GetMaxStock() {
-            switch(Model) {
+        public static int GetMaxStock(LawnMowerModel model) {
+            switch(model) {
                 case LawnMowerModel.Electrical1:
                     return 7;
                 case LawnMowerModel.Electrical2:

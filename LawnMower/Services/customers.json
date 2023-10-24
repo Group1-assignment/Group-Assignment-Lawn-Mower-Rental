@@ -1,140 +1,27 @@
 [
   {
-    "Name": "sdfg",
-    "PhoneNumber": 9823456,
-    "CustomerType": 1,
-    "Rentals": []
-  },
-  {
-    "Name": "sdf",
-    "PhoneNumber": 987,
-    "CustomerType": 1,
-    "Rentals": []
-  },
-  {
-    "Name": "asdf",
-    "PhoneNumber": 1234,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "sdfg",
-    "PhoneNumber": 23456,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "adfg",
-    "PhoneNumber": 91234,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "ewr",
-    "PhoneNumber": 3456,
-    "CustomerType": 1,
-    "Rentals": []
-  },
-  {
-    "Name": "asfasd",
-    "PhoneNumber": 34567,
-    "CustomerType": 1,
-    "Rentals": []
-  },
-  {
-    "Name": "sdfg",
-    "PhoneNumber": 345678,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "asdfg",
-    "PhoneNumber": 234567,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "asdf",
-    "PhoneNumber": 21345,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "asdfg",
-    "PhoneNumber": 234657,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "asdfg",
-    "PhoneNumber": 123467,
+    "Name": "asddg",
+    "PhoneNumber": 2343687,
     "CustomerType": 0,
     "Rentals": [
       {
-        "RentalStartDate": "2023-10-18T00:00:00+02:00",
-        "ItemType": 0
+        "RentalStartDate": "2023-10-24T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
       }
     ]
   },
   {
-    "Name": "sdfh",
-    "PhoneNumber": 23467,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "sdfshk",
-    "PhoneNumber": 345789,
+    "Name": "sdfsdg",
+    "PhoneNumber": 434567,
     "CustomerType": 0,
     "Rentals": [
       {
-        "RentalStartDate": "2023-10-22T00:00:00+02:00",
-        "ItemType": 0
-      }
-    ]
-  },
-  {
-    "Name": "sdfdh",
-    "PhoneNumber": 34568,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "kalle",
-    "PhoneNumber": 23490687,
-    "CustomerType": 1,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-22T00:00:00+02:00",
-        "ItemType": 0
-      }
-    ]
-  },
-  {
-    "Name": "thord",
-    "PhoneNumber": 23468,
-    "CustomerType": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-23T00:00:00+02:00",
-        "ItemType": 0
-      }
-    ]
-  },
-  {
-    "Name": "Thord",
-    "PhoneNumber": 9,
-    "CustomerType": 0,
-    "Rentals": []
-  },
-  {
-    "Name": "Hej",
-    "PhoneNumber": 9865,
-    "CustomerType": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-23T00:00:00+02:00",
-        "ItemType": 0
+        "RentalStartDate": "2023-10-24T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
       }
     ]
   }

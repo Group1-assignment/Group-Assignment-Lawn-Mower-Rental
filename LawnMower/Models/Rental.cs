@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LawnMowerRentalAssignment.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,15 +11,15 @@ namespace LawnMowerRentalAssignment
     public class Rental
     {
         public DateTime RentalStartDate { get; }
-        public ItemType ItemType { get; }
+        public LawnMower RentedItem { get; }
 
-        public Rental(ItemType itemType) {
+        public Rental(LawnMower itemToRent) {
             RentalStartDate = DateTime.Now.Date;
-            ItemType = itemType;
+            RentedItem = itemToRent;
         }
         [JsonConstructor]
-        public Rental(ItemType itemType, DateTime rentalStartDate) {
-            ItemType = itemType;
+        public Rental(LawnMower rentedItem, DateTime rentalStartDate) {
+            RentedItem = rentedItem;
             RentalStartDate = rentalStartDate;
         }
 
@@ -30,17 +31,13 @@ namespace LawnMowerRentalAssignment
         }
 
         public decimal TotalPrice() {
-            decimal price = 0;
-            RentalItem? rentalItem = RentalManager.GetRentalItemById(ItemType);
-            if(rentalItem != null) {
-                decimal pricePerDay = rentalItem.PricePerDay;
-                price = DaysPassed() * pricePerDay;
-            }
+            decimal pricePerDay = RentedItem.PricePerDay;
+            decimal price = DaysPassed() * pricePerDay;
             return price;
         }
 
         public override string ToString() {
-            return ItemType.ToString() + ", StartDate: " + RentalStartDate + ", Days Passed: " + DaysPassed();
+            return RentedItem.Name + ", StartDate: " + RentalStartDate + ", Days Passed: " + DaysPassed();
         }
     }
 

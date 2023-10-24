@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LawnMowerRentalAssignment
 {
     public abstract class RentalItem
     {
-        public int MaxStock { get { return GetMaxStock(); } }
+        [JsonIgnore]
+        public virtual int MaxStock { get { return GetMaxStock(); } }
+        [JsonIgnore]
         public decimal PricePerDay { get { return GetPricePerDay(); } }
+        [JsonIgnore]
+        public string Name { get { return GetItemName(); } }
 
-        protected abstract int GetMaxStock();
+        protected static int GetMaxStock() {
+            return 0;
+        }
         protected abstract decimal GetPricePerDay();
 
         public int GetStock() {
@@ -20,7 +27,7 @@ namespace LawnMowerRentalAssignment
             return stock;
         }
 
-        public virtual string GetItemName() {
+        protected virtual string GetItemName() {
             return GetType().Name;
         }
 
