@@ -22,55 +22,110 @@ namespace LawnMowerRentalAssignment
         public List<Rental> Rentals { get; set; } = new List<Rental>();   //all the rentals of the customer
 
         //all fields are set in this constructor when creating the customer object
-        public Customer(string name, int phoneNumber, CustomerType customerType) {
+        public Customer(string name, int phoneNumber, CustomerType customerType)
+        {
             Name = name;
             PhoneNumber = phoneNumber;
             CustomerType = customerType;
         }
 
-        public override string ToString() {
+       
+
+        public override string ToString()
+        {
             return Name + ", " + PhoneNumber + ", " + CustomerType.ToString();
         }
 
-        public void Rent(Rental rentalObject) {
+        public void Rent(Rental rentalObject)
+        {
             Rentals.Add(rentalObject);
         }
 
-        public void ReturnRental(Rental rentalObject) {
+        public void ReturnRental(Rental rentalObject)
+        {
             Rentals.Remove(rentalObject);
         }
     }
-    class Basic : Rental
-    {
-        public int MinDays { get; set; }
-        // minimum  7 days
 
-        Void PricePlan1(int minDays)
+
+
+    class Basic : Customer
+    {
+        public Basic(string name, int phoneNumber, CustomerType customerType) : base(name, phoneNumber, customerType)
+        {
+        }
+        public int MinDays { get; set; }
+        // minimum  7 days betalning men kund får lämna tillbaka när som 
+
+        public void PricePlan1(Rental rentalObject, int minDays = 7)
+        {
+            int actualDays = rentalObject.DaysPassed();
+            if(actualDays < 7)
+            {
+                Console.WriteLine("Basic Coustumers are charged for at least 7 days");
+                rentalObject.AdjustDays(minDays);
+            }
+
+            Rentals.Add(rentalObject);
+        }
+
+
+
+        // 25 % discount 
+        public decimal Offer { get; set; }
+        public DateTime EndDate { get; set; }
+
+         bool coupon = false;
+
+         decimal Discount(decimal offer, DateTime endDate)
+        {
+            Offer = offer;
+            EndDate = endDate; // year.12,31
+            coupon = false;
+
+            // hur man håller koll på per år 
+            // bool = true => enddate
+            // overloading
+            return 0;
+        }
+       
+         bool EndOffer()
+        {
+            if (coupon = false)
+            {
+                DateTime date = DateTime.Now.Date;
+                DateTime endDate = new DateTime(date.Year,12,31);
+
+
+                return date > endDate;
+            }
+
+            return false; 
+        }
+       
+    }
+
+    class Prime : Customer
+    {
+        public decimal PointsPerDay { get; set; } // bonus p 
+
+        public Prime(string name, int phoneNumber, CustomerType customerType) : base(name, phoneNumber, customerType)
+        { }
+        
+      
+        // går att använda samma typ som pris
+            decimal Points()
         {
 
-            DateTime StartDate = DateTime.Now.Date;
-            int minDays = 7;
 
+            return PointsPerDay;
         }
-    }
-
-    class Basic: RentalItem {
-
-        bool coupon = false;
-        public decimal Offer { get; set; }
-        // 25 % discount 
-        void Discount() {
 
 
-        }
-        
-    }
 
-     class Prime: RentalItem
-    {
-        // bonus p 
+
+
 
 
     }
-
 }

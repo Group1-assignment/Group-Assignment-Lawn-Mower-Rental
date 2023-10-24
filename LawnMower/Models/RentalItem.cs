@@ -22,6 +22,8 @@ namespace LawnMowerRentalAssignment
         }
         protected abstract decimal GetPricePerDay();
 
+
+
         public int GetStock() {
             int stock = MaxStock - RentalManager.GetRentedCount(this);
             return stock;

@@ -29,11 +29,40 @@ namespace LawnMowerRentalAssignment
             int daysPassed = timePassed.Days;
             return daysPassed;
         }
+        // metod för minst 7 dagar 
+        public void AdjustDays(int minDays)
+        {
+            int actualDays = DaysPassed();
+            if (actualDays < minDays)
+            {
+                RentalStartDate = RentalStartDate.AddDays(minDays - actualDays);
+                
+            }
+        }
+
+
 
         public decimal TotalPrice() {
-            decimal pricePerDay = RentedItem.PricePerDay;
-            decimal price = DaysPassed() * pricePerDay;
-            return price;
+
+            if (true)
+            {
+                
+            }
+            else 
+            {
+                decimal pricePerDay = RentedItem.PricePerDay;
+                decimal price = DaysPassed() * pricePerDay;
+                return price;
+
+            }
+            
+        }
+
+        public decimal TotalPoints()
+        {
+            decimal pointsPerDay = RentedItem.PricePerDay;
+            decimal points = DaysPassed() * pointsPerDay;
+            return pointsPerDay;
         }
 
         public override string ToString() {
