@@ -7,66 +7,25 @@ using System.Threading.Tasks;
 
 namespace LawnMowerRentalAssignment
 {
-    public enum ItemType
+    public abstract class RentalItem
     {
-       Electrical1,
-       Electrical2,
-       Petrol
-    }
-    public class RentalItem
-    {
-        public int MaxStock { get; }
-        public decimal PricePerDay { get; }
-        public ItemType ItemType { get; }
+        public int MaxStock { get { return GetMaxStock(); } }
+        public decimal PricePerDay { get { return GetPricePerDay(); } }
 
-        public RentalItem(int maxStock, decimal price, ItemType itemType) {
-            ItemType = itemType;
-            MaxStock = maxStock;
-            PricePerDay = price;
-        }
+        protected abstract int GetMaxStock();
+        protected abstract decimal GetPricePerDay();
 
         public int GetStock() {
-            int stock = MaxStock - RentalManager.GetRentedCount(ItemType);
+            int stock = MaxStock - RentalManager.GetRentedCount(this);
             return stock;
         }
 
+        public virtual string GetItemName() {
+            return GetType().Name;
+        }
+
         public override string ToString() {
-            return "Id: " + ItemType + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
-        }
-
-        public double GetEffect()
-        {
-            switch (Id) {
-                case ItemType.Electrical1:
-                    return 75.6;
-                  //  break;
-                    case ItemType.Electrical2:
-                    return 146;
-                 //   break;
-                case ItemType.Petrol:
-                    return 862;
-                //  break;
-                default:
-                    return 0;
-
-            }
-        }
-
-        public string GetUnit()
-        {
-            if(Id==ItemType.Petrol)
-            {
-                return "g / kWh";
-            }
-            else
-            { 
-                return "wH";
-            }
-        }
-
-        public string  GetEffectToString()
-        {
-            return GetEffect()+GetUnit();
+            return "Item: " + GetItemName() + ", Maxstock: " + MaxStock + ", Price per day: " + PricePerDay;
         }
     }
 }
