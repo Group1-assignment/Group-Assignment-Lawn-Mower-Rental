@@ -3,12 +3,105 @@
     "Name": "asddg",
     "PhoneNumber": 2343687,
     "CustomerType": 0,
-    "Rentals": []
+    "Rentals": [
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 1
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
+      }
+    ]
   },
   {
     "Name": "sdfsdg",
     "PhoneNumber": 434567,
     "CustomerType": 0,
-    "Rentals": []
+    "Rentals": [
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 1
+        }
+      }
+    ]
+  },
+  {
+    "Name": "sneha",
+    "PhoneNumber": 789,
+    "CustomerType": 0,
+    "Rentals": [
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 1
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 2
+        }
+      },
+      {
+        "RentalStartDate": "2023-10-25T00:00:00+02:00",
+        "RentedItem": {
+          "Model": 0
+        }
+      }
+    ]
   }
 ]
