@@ -30,6 +30,7 @@ namespace LawnMowerRentalAssignment.Services
                         break;
 
                     case "2":
+
                         ProcessRental();
                         break;
 
@@ -37,7 +38,7 @@ namespace LawnMowerRentalAssignment.Services
                         LawnMowerModel[] models = (LawnMowerModel[])Enum.GetValues(typeof(LawnMowerModel)); //list lawnmower models
                         Console.WriteLine();
                         foreach(LawnMowerModel model in models) {
-                            Console.WriteLine(model.ToString() + " " + LawnMower.GetMaxStock(model));
+                            Console.WriteLine(model.ToString() + " " + rentalManager.GetLawnMowerStock(model));
                         }
                         break;
 
@@ -116,8 +117,8 @@ namespace LawnMowerRentalAssignment.Services
         }
         private static void ProcessRental()
         {
-               Console.WriteLine("Is this an Electrical Electrical1:-1,Electrical2:-2, Petrol:-3 ");
-               var inputValue = Convert.ToInt16( Console.ReadLine());
+            Console.WriteLine("Is this an Electrical Electrical1:-1,Electrical2:-2, Petrol:-3 ");
+            var inputValue = Convert.ToInt16(Console.ReadLine());
 
             var selectedModel = LawnMowerModel.Petrol;
             Rental rental = new Rental(new LawnMower(LawnMowerModel.Petrol));
@@ -142,8 +143,14 @@ namespace LawnMowerRentalAssignment.Services
             }
 
 
-            int lawnMowerStock = LawnMower.GetMaxStock(selectedModel);
-            if (lawnMowerStock > 0)
+            int lawnMowerStock = rentalManager.GetLawnMowerStock(selectedModel);
+            if (rentalManager.Customers.Count == 0)
+                Console.WriteLine("Register User First");
+            else if (lawnMowerStock <= 0)
+            {
+                Console.WriteLine("There are currently no available lawnmowers in stock");
+            }
+            else
             {
                 DisplayStock(lawnMowerStock);
                 List<Customer> customers = rentalManager.Customers;
@@ -156,13 +163,12 @@ namespace LawnMowerRentalAssignment.Services
 
                 Customer customer = rentalManager.Customers[choice];
                 customer.Rent(rental);
-               string result= rental.RentedItem.GetEffectToString();
-                
-                Console.WriteLine($"new lawnmower rental added to customer:{ customer.ToString()} {selectedModel} {result}");
-                
+                string result = rental.RentedItem.GetEffectToString();
+
+                Console.WriteLine($"new lawnmower rental added to customer:{customer.ToString()} {selectedModel} {result}");
+
                 rentalManager.SaveCustomerListToJson();
             }
-            else Console.WriteLine("There are currently no available lawnmowers in stock");
         }
 
         private static void displayChoices() {
