@@ -36,33 +36,29 @@ namespace LawnMowerRentalAssignment
         public decimal TotalPrice() {
             int daysPassed = DaysPassed();
             decimal pricePerDay = RentedItem.PricePerDay;
-            if ( minimumDays < daysPassed)
+            if (minimumDays < daysPassed)
             {
 
-                return pricePerDay * minimumDays ;
+                return pricePerDay * minimumDays;
             }
-            else {
-                
+            else
+            {
+
                 decimal price = DaysPassed() * pricePerDay;
                 return price;
             }
 
-            
 
         }
         public decimal TotalPrice(int discount)
         {
-                decimal offer = discount / 100;
-                decimal result = TotalPrice() * offer;
-                decimal newPrice = TotalPrice() - result; 
+            decimal offer = discount / 100;
+            decimal result = TotalPrice() * offer;
+            decimal newPrice = TotalPrice() - result;
 
-                return newPrice;
-           
+            return newPrice;
+
         }
-
-
-
-
 
         public override string ToString() {
             return RentedItem.Name + ", StartDate: " + RentalStartDate + ", Days Passed: " + DaysPassed();

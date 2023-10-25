@@ -33,10 +33,12 @@ namespace LawnMowerRentalAssignment
             return Name + ", " + PhoneNumber + ", " + CustomerType.ToString();
         }
 
-        public void Rent(LawnMower lawnmower) {
+        public virtual void Rent(LawnMower lawnmower) {
             Rental rental = new Rental(lawnmower, 0);
             Rentals.Add(rental);
         }
+       
+        
 
         public void ReturnRental(Rental rentalObject) {
             Rentals.Remove(rentalObject);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LawnMowerRentalAssignment.Models;
 
 namespace LawnMowerRentalAssignment
 {
@@ -10,16 +11,21 @@ namespace LawnMowerRentalAssignment
     {
         public BasicCustomer(string name, int phoneNumber, CustomerType customerType) : base(name, phoneNumber, customerType) {
         }
-        public int MinDays { get; set; }
-        // minimum  7 days betalning men kund får lämna tillbaka när som 
 
+        // minimum  7 days 
+        public override void Rent(LawnMower lawnmower)
+        {
+            Rental rental = new Rental(lawnmower, 7);
+            Rentals.Add(rental);
+        }
 
 
         // 25 % discount 
         public decimal Offer { get; set; }
         public DateTime EndDate { get; set; }
+        public bool coupon { get; set; }
 
-        bool coupon = false;
+         
 
         decimal Discount(decimal offer, DateTime endDate) {
             Offer = offer;
@@ -29,11 +35,14 @@ namespace LawnMowerRentalAssignment
             // hur man håller koll på per år 
             // bool = true => enddate
             // overloading
-            return 0;
+
+
+            return offer ;
         }
 
-        bool EndOffer() {
-            if(coupon = false) {
+
+        bool HasOffer() { // använd eller inte 
+            if(coupon == false) { 
                 DateTime date = DateTime.Now.Date;
                 DateTime endDate = new DateTime(date.Year, 12, 31);
 
@@ -42,7 +51,9 @@ namespace LawnMowerRentalAssignment
             }
 
             return false;
+
         }
 
+       
     }
 }
