@@ -14,7 +14,7 @@ namespace LawnMowerRentalAssignment
 {
     public class RentalManager
     {
-        private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
+        private static string jsonPath = "D:\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
         private List<Customer>? customers = new List<Customer>();
 
         public List<Customer> Customers { get { return customers; } }
