@@ -104,5 +104,25 @@ namespace LawnMowerRentalAssignment
             }
             return count;
         }
+        public static int GetLawnMowerCount(LawnMowerModel lawnMowerModel)
+        {
+            int count = 0;
+            foreach (Customer customer in new RentalManager().customers)
+            {
+                foreach (Rental rental in customer.Rentals)
+                {
+                    if (lawnMowerModel== rental.RentedItem.Model)
+                        count++;
+                }
+            }
+            return count;
+        }
+
+        public int GetLawnMowerStock(LawnMowerModel lawnMowerModel)
+        {
+          int stock=LawnMower.GetMaxStock(lawnMowerModel) - GetLawnMowerCount(lawnMowerModel);
+            return stock;
+        
+        }
     }
 }
