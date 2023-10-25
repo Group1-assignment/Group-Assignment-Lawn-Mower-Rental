@@ -13,16 +13,6 @@ namespace LawnMowerRentalAssignment
         public int MinDays { get; set; }
         // minimum  7 days betalning men kund får lämna tillbaka när som 
 
-        public void PricePlan1(Rental rentalObject, int minDays = 7) {
-            int actualDays = rentalObject.DaysPassed();
-            if(actualDays < 7) {
-                Console.WriteLine("Basic Coustumers are charged for at least 7 days");
-                rentalObject.AdjustDays(minDays);
-            }
-
-            Rentals.Add(rentalObject);
-        }
-
 
 
         // 25 % discount 

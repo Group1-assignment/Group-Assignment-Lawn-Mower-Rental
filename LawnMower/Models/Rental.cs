@@ -12,10 +12,12 @@ namespace LawnMowerRentalAssignment
     {
         public DateTime RentalStartDate { get; }
         public LawnMower RentedItem { get; }
+        public int minimumDays { get; }
 
-        public Rental(LawnMower itemToRent) {
+        public Rental(LawnMower itemToRent, int minimumDays) {
             RentalStartDate = DateTime.Now.Date;
             RentedItem = itemToRent;
+            this.minimumDays = minimumDays;
         }
         [JsonConstructor]
         public Rental(LawnMower rentedItem, DateTime rentalStartDate) {
@@ -28,6 +30,7 @@ namespace LawnMowerRentalAssignment
             TimeSpan timePassed = currentDate - RentalStartDate;
             int daysPassed = timePassed.Days;
             return daysPassed;
+
         }
 
         public decimal TotalPrice() {

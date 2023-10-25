@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LawnMowerRentalAssignment.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,8 +33,9 @@ namespace LawnMowerRentalAssignment
             return Name + ", " + PhoneNumber + ", " + CustomerType.ToString();
         }
 
-        public void Rent(Rental rentalObject) {
-            Rentals.Add(rentalObject);
+        public void Rent(LawnMower lawnmower) {
+            Rental rental = new Rental(lawnmower, 0);
+            Rentals.Add(rental);
         }
 
         public void ReturnRental(Rental rentalObject) {

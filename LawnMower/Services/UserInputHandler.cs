@@ -10,7 +10,7 @@ namespace LawnMowerRentalAssignment.Services
     public static class UserInputHandler
     {
         private static RentalManager rentalManager = new RentalManager();
-        
+
 
         public static void Initialize() {
             ProcessChoices();
@@ -115,55 +115,46 @@ namespace LawnMowerRentalAssignment.Services
         private static void DisplayStock(int itemStock) {
             Console.WriteLine("\nCurrent stock of LawnMowers available for renting: " + itemStock);
         }
-        private static void ProcessRental()
-        {
+        private static void ProcessRental() {
             Console.WriteLine("Is this an Electrical Electrical1:-1,Electrical2:-2, Petrol:-3 ");
             var inputValue = Convert.ToInt16(Console.ReadLine());
 
-            var selectedModel = LawnMowerModel.Petrol;
-            Rental rental = new Rental(new LawnMower(LawnMowerModel.Petrol));
-            switch (inputValue)
-            {
+            LawnMowerModel selectedModel = LawnMowerModel.Petrol;
+            switch(inputValue) {
                 case 1:
-                    rental = new Rental(new LawnMower(LawnMowerModel.Electrical1));
                     selectedModel = LawnMowerModel.Electrical1;
                     break;
                 case 2:
-                    rental = new Rental(new LawnMower(LawnMowerModel.Electrical2));
                     selectedModel = LawnMowerModel.Electrical2;
                     break;
                 case 3:
                     selectedModel = LawnMowerModel.Petrol;
-                    rental = new Rental(new LawnMower(LawnMowerModel.Petrol));
                     break;
                 default:
-                    rental = new Rental(new LawnMower(LawnMowerModel.Petrol));
                     selectedModel = LawnMowerModel.Petrol; // Default to Petrol for invalid input
                     break;
             }
 
 
             int lawnMowerStock = rentalManager.GetLawnMowerStock(selectedModel);
-            if (rentalManager.Customers.Count == 0)
+            if(rentalManager.Customers.Count == 0)
                 Console.WriteLine("Register User First");
-            else if (lawnMowerStock <= 0)
-            {
+            else if(lawnMowerStock <= 0) {
                 Console.WriteLine("There are currently no available lawnmowers in stock");
             }
-            else
-            {
+            else {
                 DisplayStock(lawnMowerStock);
                 List<Customer> customers = rentalManager.Customers;
                 indexList(customers);
                 int choice;
-                do
-                {
+                do {
                     Console.Write("Who is renting? Select an option: ");
-                } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > rentalManager.Customers.Count - 1);
+                } while(!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > rentalManager.Customers.Count - 1);
 
                 Customer customer = rentalManager.Customers[choice];
-                customer.Rent(rental);
-                string result = rental.RentedItem.GetEffectToString();
+                LawnMower lawnmower = new LawnMower(selectedModel);
+                customer.Rent(lawnmower);
+                string result = lawnmower.GetEffectToString();
 
                 Console.WriteLine($"new lawnmower rental added to customer:{customer.ToString()} {selectedModel} {result}");
 

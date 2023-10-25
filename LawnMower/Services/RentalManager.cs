@@ -14,7 +14,7 @@ namespace LawnMowerRentalAssignment
 {
     public class RentalManager
     {
-        private static string jsonPath = "D:\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
+        private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
         private List<Customer>? customers = new List<Customer>();
 
         public List<Customer> Customers { get { return customers; } }
@@ -104,25 +104,21 @@ namespace LawnMowerRentalAssignment
             }
             return count;
         }
-        public static int GetLawnMowerCount(LawnMowerModel lawnMowerModel)
-        {
+        public static int GetLawnMowerCount(LawnMowerModel lawnMowerModel) {
             int count = 0;
-            foreach (Customer customer in new RentalManager().customers)
-            {
-                foreach (Rental rental in customer.Rentals)
-                {
-                    if (lawnMowerModel== rental.RentedItem.Model)
+            foreach(Customer customer in new RentalManager().customers) {
+                foreach(Rental rental in customer.Rentals) {
+                    if(lawnMowerModel == rental.RentedItem.Model)
                         count++;
                 }
             }
             return count;
         }
 
-        public int GetLawnMowerStock(LawnMowerModel lawnMowerModel)
-        {
-          int stock=LawnMower.GetMaxStock(lawnMowerModel) - GetLawnMowerCount(lawnMowerModel);
+        public int GetLawnMowerStock(LawnMowerModel lawnMowerModel) {
+            int stock = LawnMower.GetMaxStock(lawnMowerModel) - GetLawnMowerCount(lawnMowerModel);
             return stock;
-        
+
         }
     }
 }
