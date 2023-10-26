@@ -13,15 +13,16 @@ namespace LawnMowerRentalAssignment
         public DateTime RentalStartDate { get; }
         public LawnMower RentedItem { get; }
         public int minimumDays { get; }
+        public int Offer { get; }
 
-        public Rental(LawnMower itemToRent, int minimumDays) {
+        public Rental(LawnMower rentedItem, int minimumDays, int offer) {
             RentalStartDate = DateTime.Now.Date;
-            RentedItem = itemToRent;
+            RentedItem = rentedItem;
             this.minimumDays = minimumDays;
+            Offer = offer;
         }
         [JsonConstructor]
-        public Rental(LawnMower rentedItem, DateTime rentalStartDate) {
-            RentedItem = rentedItem;
+        public Rental(LawnMower rentedItem, int minimumDays, DateTime rentalStartDate, int offer) : this(rentedItem, minimumDays, offer) {
             RentalStartDate = rentalStartDate;
         }
 
@@ -34,29 +35,25 @@ namespace LawnMowerRentalAssignment
         }
 
         public decimal TotalPrice() {
+            decimal totalPrice;
             int daysPassed = DaysPassed();
+            if(daysPassed == 0)
+                daysPassed = 1;
             decimal pricePerDay = RentedItem.PricePerDay;
-            if (minimumDays < daysPassed)
-            {
+            if(minimumDays > daysPassed) {
 
-                return pricePerDay * minimumDays;
+                totalPrice = pricePerDay * minimumDays;
             }
-            else
-            {
-
-                decimal price = DaysPassed() * pricePerDay;
-                return price;
+            else {
+                totalPrice = daysPassed * pricePerDay;
             }
-
-
-        }
-        public decimal TotalPrice(int discount)
-        {
-            decimal offer = discount / 100;
-            decimal result = TotalPrice() * offer;
-            decimal newPrice = TotalPrice() - result;
-
-            return newPrice;
+            decimal offer;
+            if(Offer > 0) {
+                offer = Offer / 100;
+                decimal discountMoney = totalPrice * offer;
+                totalPrice -= discountMoney;
+            }
+            return totalPrice;
 
         }
 

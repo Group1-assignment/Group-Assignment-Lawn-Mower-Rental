@@ -38,6 +38,9 @@ namespace LawnMowerRentalAssignment
                     //initialize customers with an empty list.
                     customers = new List<Customer>();
                 }
+                catch(IOException ex) {
+                    Console.WriteLine(ex.Message);
+                }
             }
             else {
                 // If the JSON file doesn't exist, initialize customers with an empty list.
