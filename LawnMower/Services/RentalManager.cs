@@ -14,42 +14,36 @@ namespace LawnMowerRentalAssignment
 {
     public class RentalManager
     {
-        private static string jsonPath = "/Users/bledonqyqalla/Desktop/coding/Group-Assignment-Lawn-Mower-Rental/LawnMower/Services/customers.json";
+        private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
         private List<Customer>? customers = new List<Customer>();
 
         public List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
-           InitializeCustomerList();
+            InitializeCustomerList();
 
         }
-        
 
-        private void InitializeCustomerList()
-        {
-            if (File.Exists(jsonPath))
-            {
+
+        private void InitializeCustomerList() {
+            if(File.Exists(jsonPath)) {
                 string json = File.ReadAllText(jsonPath);
 
-                try
-                {
+                try {
 
                     customers = JsonSerializer.Deserialize<List<Customer>>(json);
                 }
-                catch (JsonException ex)
-                {
+                catch(JsonException ex) {
                     // Handle the exception.
                     Console.WriteLine("Error deserializing customer data: " + ex.Message);
                     //initialize customers with an empty list.
                     customers = new List<Customer>();
                 }
-                catch (IOException ex)
-                {
+                catch(IOException ex) {
                     Console.WriteLine(ex.Message);
                 }
             }
-            else
-            {
+            else {
                 // If the JSON file doesn't exist, initialize customers with an empty list.
                 customers = new List<Customer>();
             }
@@ -57,9 +51,6 @@ namespace LawnMowerRentalAssignment
 
         public List<Customer> GetRentingCustomers() {
             List<Customer> rentingCustomers = customers.Where(customer => customer.Rentals.Count > 0).ToList();
-
-            foreach(Customer customer in rentingCustomers)
-                Console.WriteLine(customer.ToString());
 
             return rentingCustomers;
         }
@@ -79,13 +70,15 @@ namespace LawnMowerRentalAssignment
 
         public void SaveCustomerListToJson() {
 
+            try {
+                var options = new JsonSerializerOptions {
+                    WriteIndented = true // Optional: Makes the JSON output human-readable
+                };
 
-            var options = new JsonSerializerOptions {
-                WriteIndented = true // Optional: Makes the JSON output human-readable
-            };
-
-            string json = JsonSerializer.Serialize(customers, options);
-            File.WriteAllText(jsonPath, json);
+                string json = JsonSerializer.Serialize(customers, options);
+                File.WriteAllText(jsonPath, json);
+            }
+            catch(IOException ex) { Console.WriteLine(ex.Message + "\n" + ex.StackTrace); }
         }
 
 
