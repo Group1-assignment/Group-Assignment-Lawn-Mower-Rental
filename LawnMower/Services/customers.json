@@ -8,5 +8,15 @@
     "EndDate": "2023-12-31T00:00:00",
     "PrimeBonus": 0,
     "Rentals": []
+  },
+  {
+    "Name": "2",
+    "PhoneNumber": 3,
+    "CustomerType": 0,
+    "PrimeCustomer": true,
+    "UsedCoupon": false,
+    "EndDate": "2023-12-31T00:00:00",
+    "PrimeBonus": 0,
+    "Rentals": []
   }
 ]

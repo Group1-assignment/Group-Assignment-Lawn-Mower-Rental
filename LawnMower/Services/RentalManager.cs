@@ -20,7 +20,7 @@ namespace LawnMowerRentalAssignment
         public List<Customer> Customers { get { return customers; } }
 
         public RentalManager() {
-          // InitializeCustomerList();
+           InitializeCustomerList();
 
         }
         
