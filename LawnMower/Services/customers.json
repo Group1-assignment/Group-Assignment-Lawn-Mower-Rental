@@ -1,31 +1,12 @@
 [
   {
-    "Name": "asfg",
-    "PhoneNumber": 2345,
+    "Name": "1",
+    "PhoneNumber": 1,
     "CustomerType": 0,
     "PrimeCustomer": true,
-    "UsedCoupon": true,
+    "UsedCoupon": false,
     "EndDate": "2023-12-31T00:00:00",
     "PrimeBonus": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-26T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 0
-        },
-        "minimumDays": 0,
-        "Offer": 0
-      }
-    ]
-  },
-  {
-    "Name": "sdfgdh",
-    "PhoneNumber": 2346,
-    "CustomerType": 0,
-    "PrimeCustomer": true,
-    "UsedCoupon": true,
-    "EndDate": "2023-12-31T00:00:00",
-    "PrimeBonus": 50,
     "Rentals": []
   }
 ]

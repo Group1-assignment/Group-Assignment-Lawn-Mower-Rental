@@ -24,8 +24,7 @@ namespace LawnMowerRentalAssignment
         public int PhoneNumber { get; }
         public CustomerType CustomerType { get; }
 
-        public bool PrimeCustomer { get; set; } = true;
-
+        public bool PrimeCustomer { get; set; } 
         // discount 
         public bool UsedCoupon { get; set; } = false;
         public DateTime EndDate { get { return endDate; } }
@@ -35,15 +34,16 @@ namespace LawnMowerRentalAssignment
         public List<Rental> Rentals { get; set; } = new List<Rental>();   //all the rentals of the customer
 
         //all fields are set in this constructor when creating the customer object
-        public Customer(string name, int phoneNumber, CustomerType customerType) {
+        public Customer(string name, int phoneNumber, CustomerType customerType,bool primeCustomer) {
             Name = name;
             PhoneNumber = phoneNumber;
             CustomerType = customerType;
+            PrimeCustomer = primeCustomer;
             primeBonus = 0;
         }
         [JsonConstructor]
-        public Customer(string name, int phoneNumber, CustomerType customerType, int primeBonus, DateTime endDate) :
-            this(name, phoneNumber, customerType) {
+        public Customer(string name, int phoneNumber, CustomerType customerType, int primeBonus, DateTime endDate, bool primeCustomer) :
+            this(name, phoneNumber, customerType,primeCustomer) {
             this.primeBonus = primeBonus;
             this.endDate = endDate;
         }

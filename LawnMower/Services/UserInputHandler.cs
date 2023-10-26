@@ -183,7 +183,20 @@ namespace LawnMowerRentalAssignment.Services
             int phoneNumber = ValidatePhoneNumber();
 
             CustomerType customerType = GetCustomerType();
-            Customer customer = new Customer(name, phoneNumber, customerType);
+
+            Console.WriteLine("Do you want to become a prime Customer?  (yes/no)");
+            string input = Console.ReadLine();
+            bool primeCustomer = input == "yes";
+            if (primeCustomer)
+            {
+                Console.WriteLine("You are now a Prime Customer");
+            }
+            else
+            {
+                Console.WriteLine("You are now a Basic customer");
+            }
+
+            Customer customer = new Customer(name, phoneNumber, customerType, primeCustomer);
             return customer;
         }
         public static CustomerType GetCustomerType() {
