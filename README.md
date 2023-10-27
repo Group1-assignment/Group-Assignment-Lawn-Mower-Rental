@@ -17,4 +17,4 @@ Worked much with the customer class and console
 ### Sneha
 Worked much on the Lawnmower class and console
 ### Thord
-Has designed much of the architecture we are currently and assisted the others and kept an eye of the direction the project goes.
+Has designed much of the object oriented architecture, assisted the others when asked for and kept an eye of the direction the project goes.
