@@ -57,15 +57,8 @@ namespace LawnMowerRentalAssignment
 
 
         public void RegisterCustomer(Customer customer) {
-
-            if(PhoneNumberExists(customer.PhoneNumber)) {
-                Console.WriteLine("Customer with phone number: " + customer.PhoneNumber + " is already registered");
-            }
-            else {
-                customers.Add(customer);
-                Console.WriteLine("Registered customer: " + customer.ToString());
-                SaveCustomerListToJson();
-            }
+            customers.Add(customer);
+            SaveCustomerListToJson();
         }
 
         public void SaveCustomerListToJson() {

@@ -24,7 +24,7 @@ namespace LawnMowerRentalAssignment
         public int PhoneNumber { get; }
         public CustomerType CustomerType { get; }
 
-        public bool PrimeCustomer { get; set; } 
+        public bool PrimeCustomer { get; set; }
         // discount 
         public bool UsedCoupon { get; set; } = false;
         public DateTime EndDate { get { return endDate; } }
@@ -34,22 +34,24 @@ namespace LawnMowerRentalAssignment
         public List<Rental> Rentals { get; set; } = new List<Rental>();   //all the rentals of the customer
 
         //all fields are set in this constructor when creating the customer object
-        public Customer(string name, int phoneNumber, CustomerType customerType,bool primeCustomer) {
+        public Customer(string name, int phoneNumber, CustomerType customerType, bool primeCustomer) {
             Name = name;
             PhoneNumber = phoneNumber;
             CustomerType = customerType;
             PrimeCustomer = primeCustomer;
             primeBonus = 0;
         }
+        //this constructor is only so the json deserialization should work properly
         [JsonConstructor]
         public Customer(string name, int phoneNumber, CustomerType customerType, int primeBonus, DateTime endDate, bool primeCustomer) :
-            this(name, phoneNumber, customerType,primeCustomer) {
+            this(name, phoneNumber, customerType, primeCustomer) {
             this.primeBonus = primeBonus;
             this.endDate = endDate;
         }
 
         public override string ToString() {
-            return Name + ", " + PhoneNumber + ", " + CustomerType.ToString();
+            string prime = PrimeCustomer ? "Prime" : "Basic";
+            return Name + ", " + PhoneNumber + ", " + CustomerType.ToString() + ", " + prime;
         }
 
         public virtual void Rent(LawnMower lawnmower) {

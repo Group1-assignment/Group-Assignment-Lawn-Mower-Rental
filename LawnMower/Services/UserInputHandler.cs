@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,8 +26,7 @@ namespace LawnMowerRentalAssignment.Services
 
                 switch(choice) {
                     case "1":
-                        Customer customer = GetCustomerDetails();
-                        rentalManager.RegisterCustomer(customer);
+                        RegisterCustomerFromConsole();
                         break;
 
                     case "2":
@@ -35,11 +35,7 @@ namespace LawnMowerRentalAssignment.Services
                         break;
 
                     case "3":
-                        LawnMowerModel[] models = (LawnMowerModel[])Enum.GetValues(typeof(LawnMowerModel)); //list lawnmower models
-                        Console.WriteLine();
-                        foreach(LawnMowerModel model in models) {
-                            Console.WriteLine(model.ToString() + " " + rentalManager.GetLawnMowerStock(model));
-                        }
+                        DisplayAllStock();
                         break;
 
                     case "4":
@@ -56,6 +52,104 @@ namespace LawnMowerRentalAssignment.Services
                         break;
                 }
             }
+        }
+
+        private static void displayChoices() {
+            Console.WriteLine("\nLawn Mower Rental System");
+            Console.WriteLine("1. Register Customer");
+            Console.WriteLine("2. Rent Lawn Mower");
+            Console.WriteLine("3. Check Available Lawn Mowers");
+            Console.WriteLine("4. Display Customer Rentals");
+            Console.WriteLine("5. Return Lawnmower");
+
+            Console.Write("Select an option: ");
+
+        }
+
+        private static void RegisterCustomerFromConsole() {
+            Customer customer = GetCustomerDetails();
+            if(rentalManager.PhoneNumberExists(customer.PhoneNumber)) {
+                Console.WriteLine("Customer with phone number: " + customer.PhoneNumber + " is already registered");
+            }
+            else {
+                rentalManager.RegisterCustomer(customer);
+                Console.WriteLine("Registered customer: " + customer.ToString());
+            }
+        }
+
+        public static Customer GetCustomerDetails() {
+            Console.Write("Customer Name: ");
+            string? name = null;
+            while(name == null)
+                name = Console.ReadLine();
+
+            int phoneNumber = ValidatePhoneNumber();
+
+            CustomerType customerType = GetCustomerType();
+
+            Console.WriteLine("Do you want to become a prime Customer?  (yes/no)");
+            string input = Console.ReadLine();
+            bool primeCustomer = input == "yes";
+            if(primeCustomer) {
+                Console.WriteLine("You are now a Prime Customer");
+            }
+            else {
+                Console.WriteLine("You are now a Basic customer");
+            }
+
+            Customer customer = new Customer(name, phoneNumber, customerType, primeCustomer);
+            return customer;
+        }
+
+        public static int ValidatePhoneNumber() {
+            Console.Write("Customer Phone Number: ");
+            int phoneNumber = 0;
+            if(int.TryParse(Console.ReadLine(), out phoneNumber))
+                return phoneNumber;
+            return ValidatePhoneNumber();
+        }
+
+        private static void ProcessRental() {
+
+            List<LawnMowerModel> lawnmowermodels = GetListOfLawnMowerModels().ToList();
+            int choice = ConsoleListSelector("Select a model ", lawnmowermodels);
+
+            LawnMowerModel selectedModel = lawnmowermodels[choice];
+
+            int lawnMowerStock = rentalManager.GetLawnMowerStock(selectedModel);
+            if(rentalManager.Customers.Count == 0)
+                Console.WriteLine("Register User First");
+            else if(lawnMowerStock <= 0) {
+                Console.WriteLine("There are currently no available lawnmowers of model " + selectedModel + " in stock");
+            }
+            else {
+                DisplayStock(selectedModel);
+                List<Customer> customers = rentalManager.Customers;
+
+                choice = ConsoleListSelector("Who is renting? select an option: ", customers);
+
+                Customer customer = rentalManager.Customers[choice];
+                LawnMower lawnmower = new LawnMower(selectedModel);
+                customer.Rent(lawnmower);
+                string result = lawnmower.GetEffectToString();
+
+                Console.WriteLine($"new {lawnmower.GetType().Name}, model: {lawnmower.Model} rental added to customer:{customer} {selectedModel} {result}");
+
+                rentalManager.SaveCustomerListToJson();
+            }
+        }
+
+        private static void DisplayAllStock() {
+            LawnMowerModel[] models = GetListOfLawnMowerModels();
+            Console.WriteLine();
+            foreach(LawnMowerModel model in models) {
+                Console.WriteLine(model.ToString() + " " + rentalManager.GetLawnMowerStock(model));
+            }
+        }
+
+        private static LawnMowerModel[] GetListOfLawnMowerModels() {
+            LawnMowerModel[] models = (LawnMowerModel[])Enum.GetValues(typeof(LawnMowerModel)); //list lawnmower models
+            return models;
         }
 
         public static void ProcessLawnmowerReturn() {
@@ -96,7 +190,7 @@ namespace LawnMowerRentalAssignment.Services
 
             if(rentingCustomers.Count > 0) {
                 foreach(Customer customer in rentingCustomers) {
-                    Console.WriteLine($"Customer: {customer.Name}");
+                    Console.WriteLine($"Customer: {customer}");
                     Console.WriteLine("Rentals:");
 
                     foreach(Rental rental in customer.Rentals) {
@@ -112,92 +206,17 @@ namespace LawnMowerRentalAssignment.Services
             else { Console.WriteLine("\nNo one is currently renting"); }
         }
 
-        private static void DisplayStock(int itemStock) {
-            Console.WriteLine("\nCurrent stock of LawnMowers available for renting: " + itemStock);
-        }
-        private static void ProcessRental() {
-            Console.WriteLine("Is this an Electrical Electrical1:-1,Electrical2:-2, Petrol:-3 ");
-            var inputValue = Convert.ToInt16(Console.ReadLine());
-
-            LawnMowerModel selectedModel = LawnMowerModel.Petrol;
-            switch(inputValue) {
-                case 1:
-                    selectedModel = LawnMowerModel.Electrical1;
-                    break;
-                case 2:
-                    selectedModel = LawnMowerModel.Electrical2;
-                    break;
-                case 3:
-                    selectedModel = LawnMowerModel.Petrol;
-                    break;
-                default:
-                    selectedModel = LawnMowerModel.Petrol; // Default to Petrol for invalid input
-                    break;
-            }
-
-
-            int lawnMowerStock = rentalManager.GetLawnMowerStock(selectedModel);
-            if(rentalManager.Customers.Count == 0)
-                Console.WriteLine("Register User First");
-            else if(lawnMowerStock <= 0) {
-                Console.WriteLine("There are currently no available lawnmowers in stock");
-            }
-            else {
-                DisplayStock(lawnMowerStock);
-                List<Customer> customers = rentalManager.Customers;
-                indexList(customers);
-                int choice;
-                do {
-                    Console.Write("Who is renting? Select an option: ");
-                } while(!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > rentalManager.Customers.Count - 1);
-
-                Customer customer = rentalManager.Customers[choice];
-                LawnMower lawnmower = new LawnMower(selectedModel);
-                customer.Rent(lawnmower);
-                string result = lawnmower.GetEffectToString();
-
-                Console.WriteLine($"new lawnmower rental added to customer:{customer.ToString()} {selectedModel} {result}");
-
-                rentalManager.SaveCustomerListToJson();
-            }
+        private static void DisplayStock(LawnMowerModel model) {
+            Console.WriteLine($"\nCurrent stock of LawnMowers, model {model} available for renting: " + rentalManager.GetLawnMowerStock(model));
         }
 
-        private static void displayChoices() {
-            Console.WriteLine("\nLawn Mower Rental System");
-            Console.WriteLine("1. Register Customer");
-            Console.WriteLine("2. Rent Lawn Mower");
-            Console.WriteLine("3. Check Available Lawn Mowers");
-            Console.WriteLine("4. Display Customer Rentals");
-            Console.WriteLine("5. Return Lawnmower");
-
-            Console.Write("Select an option: ");
-
-        }
-
-        public static Customer GetCustomerDetails() {
-            Console.Write("Customer Name: ");
-            string? name = null;
-            while(name == null)
-                name = Console.ReadLine();
-
-            int phoneNumber = ValidatePhoneNumber();
-
-            CustomerType customerType = GetCustomerType();
-
-            Console.WriteLine("Do you want to become a prime Customer?  (yes/no)");
-            string input = Console.ReadLine();
-            bool primeCustomer = input == "yes";
-            if (primeCustomer)
-            {
-                Console.WriteLine("You are now a Prime Customer");
-            }
-            else
-            {
-                Console.WriteLine("You are now a Basic customer");
-            }
-
-            Customer customer = new Customer(name, phoneNumber, customerType, primeCustomer);
-            return customer;
+        private static int ConsoleListSelector<T>(string message, List<T> list) {
+            indexList(list);
+            int choice;
+            do {
+                Console.Write(message);
+            } while(!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > rentalManager.Customers.Count - 1);
+            return choice;
         }
         public static CustomerType GetCustomerType() {
 
@@ -215,14 +234,6 @@ namespace LawnMowerRentalAssignment.Services
                 return GetCustomerType();   //recursive method calling itself if the input is wrong
             }
             return customerType;
-        }
-
-        public static int ValidatePhoneNumber() {
-            Console.Write("Customer Phone Number: ");
-            int phoneNumber = 0;
-            if(int.TryParse(Console.ReadLine(), out phoneNumber))
-                return phoneNumber;
-            return ValidatePhoneNumber();
         }
 
         public static void indexList<T>(List<T> items) {
