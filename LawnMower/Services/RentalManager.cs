@@ -14,7 +14,7 @@ namespace LawnMowerRentalAssignment
 {
     public class RentalManager
     {
-        private static string jsonPath = "D:\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
+        private static string jsonPath = "C:\\Users\\thord\\Source\\Repos\\Group1-assignment\\Group-Assignment-Lawn-Mower-Rental\\LawnMower\\Services\\customers.json";
         private List<Customer>? customers = new List<Customer>();
 
         public List<Customer> Customers { get { return customers; } }
@@ -23,6 +23,7 @@ namespace LawnMowerRentalAssignment
             InitializeCustomerList();
 
         }
+
 
         private void InitializeCustomerList() {
             if(File.Exists(jsonPath)) {
@@ -38,6 +39,9 @@ namespace LawnMowerRentalAssignment
                     //initialize customers with an empty list.
                     customers = new List<Customer>();
                 }
+                catch(IOException ex) {
+                    Console.WriteLine(ex.Message);
+                }
             }
             else {
                 // If the JSON file doesn't exist, initialize customers with an empty list.
@@ -48,34 +52,26 @@ namespace LawnMowerRentalAssignment
         public List<Customer> GetRentingCustomers() {
             List<Customer> rentingCustomers = customers.Where(customer => customer.Rentals.Count > 0).ToList();
 
-            foreach(Customer customer in rentingCustomers)
-                Console.WriteLine(customer.ToString());
-
             return rentingCustomers;
         }
 
 
         public void RegisterCustomer(Customer customer) {
-
-            if(PhoneNumberExists(customer.PhoneNumber)) {
-                Console.WriteLine("Customer with phone number: " + customer.PhoneNumber + " is already registered");
-            }
-            else {
-                customers.Add(customer);
-                Console.WriteLine("Registered customer: " + customer.ToString());
-                SaveCustomerListToJson();
-            }
+            customers.Add(customer);
+            SaveCustomerListToJson();
         }
 
         public void SaveCustomerListToJson() {
 
+            try {
+                var options = new JsonSerializerOptions {
+                    WriteIndented = true // Optional: Makes the JSON output human-readable
+                };
 
-            var options = new JsonSerializerOptions {
-                WriteIndented = true // Optional: Makes the JSON output human-readable
-            };
-
-            string json = JsonSerializer.Serialize(customers, options);
-            File.WriteAllText(jsonPath, json);
+                string json = JsonSerializer.Serialize(customers, options);
+                File.WriteAllText(jsonPath, json);
+            }
+            catch(IOException ex) { Console.WriteLine(ex.Message + "\n" + ex.StackTrace); }
         }
 
 
@@ -104,25 +100,21 @@ namespace LawnMowerRentalAssignment
             }
             return count;
         }
-        public static int GetLawnMowerCount(LawnMowerModel lawnMowerModel)
-        {
+        public static int GetLawnMowerCount(LawnMowerModel lawnMowerModel) {
             int count = 0;
-            foreach (Customer customer in new RentalManager().customers)
-            {
-                foreach (Rental rental in customer.Rentals)
-                {
-                    if (lawnMowerModel== rental.RentedItem.Model)
+            foreach(Customer customer in new RentalManager().customers) {
+                foreach(Rental rental in customer.Rentals) {
+                    if(lawnMowerModel == rental.RentedItem.Model)
                         count++;
                 }
             }
             return count;
         }
 
-        public int GetLawnMowerStock(LawnMowerModel lawnMowerModel)
-        {
-          int stock=LawnMower.GetMaxStock(lawnMowerModel) - GetLawnMowerCount(lawnMowerModel);
+        public int GetLawnMowerStock(LawnMowerModel lawnMowerModel) {
+            int stock = LawnMower.GetMaxStock(lawnMowerModel) - GetLawnMowerCount(lawnMowerModel);
             return stock;
-        
+
         }
     }
 }

@@ -7,38 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
-    <Compile Include="obj\Debug\net6.0\LawnMowerRentalAssignment.AssemblyInfo.cs" />
-    <Compile Include="obj\Debug\net6.0\LawnMowerRentalAssignment.GlobalUsings.g.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="bin\Debug\net6.0\LawnMowerRentalAssignment.deps.json" />
-    <Content Include="bin\Debug\net6.0\LawnMowerRentalAssignment.runtimeconfig.json" />
-    <Content Include="obj\Debug\net6.0\LawnMowerRentalAssignment.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\LawnMowerRentalAssignment.csproj.nuget.dgspec.json" />
-    <Content Include="obj\project.assets.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\Debug\net6.0\LawnMowerRentalAssignment.dll" />
-    <None Include="bin\Debug\net6.0\LawnMowerRentalAssignment.exe" />
-    <None Include="bin\Debug\net6.0\LawnMowerRentalAssignment.pdb" />
-    <None Include="obj\Debug\net6.0\apphost.exe" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.assets.cache" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.csproj.BuildWithSkipAnalyzers" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.dll" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.genruntimeconfig.cache" />
-    <None Include="obj\Debug\net6.0\LawnMowerRentalAssignment.pdb" />
-    <None Include="obj\Debug\net6.0\refint\LawnMowerRentalAssignment.dll" />
-    <None Include="obj\Debug\net6.0\ref\LawnMowerRentalAssignment.dll" />
-    <None Include="obj\LawnMowerRentalAssignment.csproj.nuget.g.props" />
-    <None Include="obj\LawnMowerRentalAssignment.csproj.nuget.g.targets" />
-    <None Include="obj\project.nuget.cache" />
-  </ItemGroup>
-
 </Project>

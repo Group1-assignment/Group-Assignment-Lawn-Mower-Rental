@@ -1,51 +1,22 @@
 [
   {
-    "Name": "snha",
-    "PhoneNumber": 123,
+    "Name": "1",
+    "PhoneNumber": 1,
     "CustomerType": 0,
-    "Rentals": [
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 0
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      },
-      {
-        "RentalStartDate": "2023-10-25T00:00:00+02:00",
-        "RentedItem": {
-          "Model": 1
-        }
-      }
-    ]
+    "PrimeCustomer": true,
+    "UsedCoupon": false,
+    "EndDate": "2023-12-31T00:00:00",
+    "PrimeBonus": 0,
+    "Rentals": []
+  },
+  {
+    "Name": "2",
+    "PhoneNumber": 3,
+    "CustomerType": 0,
+    "PrimeCustomer": true,
+    "UsedCoupon": false,
+    "EndDate": "2023-12-31T00:00:00",
+    "PrimeBonus": 0,
+    "Rentals": []
   }
 ]
